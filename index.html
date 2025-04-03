@@ -1263,21 +1263,22 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact-form">
+                <form id="whatsappContactForm" class="contact-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                        <input type="text" id="name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" id="email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Your Message" required></textarea>
+                        <textarea id="message" placeholder="Your Message" required></textarea>
                     </div>
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-paper-plane"></i>
                         Send Message
                     </button>
                 </form>
+                
             </div>
         </div>
     </section>
@@ -1405,6 +1406,27 @@
             characterElement.style.left = currentX + 'px';
             characterElement.style.bottom = (window.innerHeight - currentY) + 'px';
         });
+
+        document.getElementById('whatsappContactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get data from form
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Your WhatsApp number
+        const phoneNumber = '919711014860';
+        
+        // Prepare the message
+        const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+        
+        // Create WhatsApp URL
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+        
+        // Redirect to WhatsApp
+        window.open(whatsappURL, '_blank');
+    });
     </script>
 </body>
 </html> 
