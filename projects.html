@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: rgb(1, 1, 30);
+            color: white;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -999;
+        }
+           
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 50px;
+            padding-right: 50px;
+            box-sizing: border-box;
+            background: rgba(1, 1, 30, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .logo span {
+            color: #00ffcc;
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-weight: 500;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a i {
+            font-size: 14px;
+            color: #00ffcc;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #00ffcc;
+        }
+        
+        .nav-links a:hover i {
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #00ffcc;
+            left: 0;
+            bottom: -2px;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .page-title span {
+            color: #00ffcc;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 255, 204, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            padding: 25px;
+            background: rgba(1, 1, 30, 0.3);
+        }
+
+        .project-info h3 {
+            color: #00ffcc;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .project-info p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .project-tag {
+            background: rgba(0, 255, 204, 0.1);
+            color: #00ffcc;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-btn:not(.secondary) {
+            background: #00ffcc;
+            color: rgba(1, 1, 30, 1);
+        }
+
+        .project-btn.secondary {
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        }
+
+        .project-btn i {
+            font-size: 1.1em;
+        }
+
+        .explore-more {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(0, 255, 204, 0.1);
+            color: #00ffcc;
+            border: 2px solid #00ffcc;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .explore-btn:hover {
+            background: #00ffcc;
+            color: rgba(1, 1, 30, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .explore-btn i {
+            font-size: 1.2em;
+        }
+
+        @media screen and (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .explore-btn {
+                padding: 10px 25px;
+                font-size: 1em;
+            }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 204, 0.8); }
+            100% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">PORT<span>FOLIO</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="index.html#about"><i class="fas fa-user"></i> About</a></li>
+            <li><a href="index.html#skills"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="projects-container">
+        <h1 class="page-title">My <span>Projects</span></h1>
+        
+        <div class="projects-grid">
+            <!-- Project cards will be added here -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/projects/DTSA.PNG" alt="Project 1">
+                </div>
+                <div class="project-info">
+                    <h3>D.T.S.A</h3>
+                    <p>Delhi Taekwondo Sports Academy (D.T.S.A) is a premier martial arts training center focused on professional Taekwondo coaching, self-defense, and fitness development. This project showcases my expertise in website design, user-friendly UI/UX, and seamless backend functionality to create a dynamic and engaging online presence for the academy</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://deshwalarjun24.github.io/D.T.S.A/" class="project-btn">
+                            <i class="fas fa-external-link-alt"></i> View Live
+                        </a>
+                        <a href="https://github.com/deshwalarjun24/D.T.S.A" class="project-btn secondary">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="assets/projects/FunVilla.PNG" alt="Project 1">
+                </div>
+                <div class="project-info">
+                    <h3>FunVilla</h3>
+                    <p>FunVilla is an exciting and interactive Kid Play Zone designed to provide a safe, fun, and engaging environment for children. This project showcases my expertise in UI/UX design, frontend development</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://deshwalarjun24.github.io/FunVilla/" class="project-btn">
+                            <i class="fas fa-external-link-alt"></i> View Live
+                        </a>
+                        <a href="https://github.com/deshwalarjun24/FunVilla" class="project-btn secondary">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+    </div>
+
+    <video id="background-video" autoplay loop muted>
+        <source src="assets/Space.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Add Lottie Character -->
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <div class="character" style="position: fixed; z-index: 9999; display: block; visibility: visible; opacity: 1; cursor: pointer; transition: transform 0.5s ease;">
+        <dotlottie-player 
+            src="https://lottie.host/36f5ae0c-4549-47bc-ba46-5bbab4d7c4c0/O8IuSe62CL.lottie" 
+            background="transparent" 
+            speed="0.3" 
+            style="width: 150px; height: 150px; mix-blend-mode: lighten;" 
+            loop autoplay id="character">        
+        </dotlottie-player>
+        <div class="speech-bubble" style="display: none; position: absolute; background: rgba(1, 1, 30, 0.8); border: 2px solid #00ffcc; border-radius: 15px; padding: 15px; top: -60px; left: 50%; transform: translateX(-50%); color: white; font-size: 16px; backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); min-width: 150px; text-align: center; transition: all 0.3s ease; opacity: 0; animation: pulse 2s infinite;">
+            <span style="font-weight: bold; color: #00ffcc;">Hi there!</span>
+            <div style="margin-top: 5px;">Welcome to my projects!</div>
+            <div style="border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 15px solid #00ffcc; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Character Random Movement
+        const characterElement = document.querySelector('.character');
+        let posX = 20;
+        let posY = window.innerHeight - 170;
+        let destX = posX;
+        let destY = posY;
+        let moveSpeed = 0.03;
+        let isMoving = true;
+
+        function getRandomPos() {
+            const maxX = window.innerWidth - 150;
+            const maxY = window.innerHeight - 150;
+            const minY = 100;
+            return {
+                x: Math.random() * maxX,
+                y: Math.random() * (maxY - minY) + minY
+            };
+        }
+
+        function moveCharacter() {
+            if (isMoving) {
+                // Change destination randomly
+                if (Math.random() < 0.008) {
+                    const newPos = getRandomPos();
+                    destX = newPos.x;
+                    destY = newPos.y;
+                }
+
+                // Move smoothly toward destination
+                posX += (destX - posX) * moveSpeed;
+                posY += (destY - posY) * moveSpeed;
+
+                // Update position
+                characterElement.style.left = posX + 'px';
+                characterElement.style.top = posY + 'px';
+            }
+            requestAnimationFrame(moveCharacter);
+        }
+
+        // Speech bubble messages
+        const messages = [
+            "Check out my projects!",
+            "Welcome to my portfolio!",
+            "Like what you see?",
+            "Feel free to contact me!",
+            "Explore my work!",
+            "Hi there! I'm Arjun!",
+            "Thanks for visiting!",
+            "Let's work together!"
+        ];
+
+        // Show speech bubble on hover/click
+        characterElement.addEventListener('click', () => {
+            const speechBubble = characterElement.querySelector('.speech-bubble');
+            
+            // Get random message
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const messageSpan = speechBubble.querySelector('span');
+            messageSpan.textContent = randomMessage;
+            
+            // Show with animation
+            speechBubble.style.display = 'block';
+            speechBubble.style.opacity = '0';
+            
+            setTimeout(() => {
+                speechBubble.style.opacity = '1';
+            }, 50);
+            
+            // Hide after delay
+            setTimeout(() => {
+                speechBubble.style.opacity = '0';
+                setTimeout(() => {
+                    speechBubble.style.display = 'none';
+                }, 500);
+            }, 3000);
+            
+            // Pause movement briefly when clicked
+            isMoving = false;
+            setTimeout(() => {
+                isMoving = true;
+            }, 2000);
+        });
+
+        // Start animation when page loads
+        window.addEventListener('load', () => {
+            const startPos = getRandomPos();
+            posX = startPos.x;
+            posY = startPos.y;
+            destX = posX;
+            destY = posY;
+            characterElement.style.left = posX + 'px';
+            characterElement.style.top = posY + 'px';
+            moveCharacter();
+        });
+    </script>
+</body>
+</html> 
