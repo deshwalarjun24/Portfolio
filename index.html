@@ -317,7 +317,7 @@
             background: rgba(1, 1, 30, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            z-index: 99;
+            z-index: 999;
             padding: 100px 30px;
             transition: all 0.3s ease;
             border-right: 1px solid var(--card-border);
@@ -325,6 +325,7 @@
 
         .sidebar.active {
             left: 0;
+            z-index: 999;
         }
 
         .sidebar-links {
@@ -334,6 +335,7 @@
 
         .sidebar-links li {
             margin: 20px 0;
+            z-index: 999;
         }
 
         .sidebar-links a {
@@ -346,6 +348,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: all 0.3s ease;
+            z-index: 999;
         }
 
         .sidebar-links a:hover {
@@ -425,6 +428,8 @@
             }
 
             .hero-image {
+                max-height: 100vh;
+
                 /* top: 10px; */
                 height:100vh;
                 opacity: 0.6;
@@ -442,6 +447,7 @@
             }
 
             .hero-content {
+                max-height: 100vh;
                 padding: 25px 15px;
                 height:70vh;
             }
