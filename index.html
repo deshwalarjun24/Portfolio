@@ -76,7 +76,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 90;
             padding: 25px 50px;
             display: flex;
             justify-content: space-between;
@@ -183,7 +183,7 @@
             -webkit-backdrop-filter: none;
             margin: 0;
             z-index: 1;
-            
+           
             box-shadow: none;
         }
 
@@ -298,6 +298,7 @@
             color: var(--text-color);
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 999;
         }
 
         .sidebar-toggle:hover {
@@ -325,7 +326,7 @@
 
         .sidebar.active {
             left: 0;
-            z-index: 999;
+            
         }
 
         .sidebar-links {
@@ -335,7 +336,7 @@
 
         .sidebar-links li {
             margin: 20px 0;
-            z-index: 999;
+            
         }
 
         .sidebar-links a {
@@ -348,7 +349,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: all 0.3s ease;
-            z-index: 999;
+            
         }
 
         .sidebar-links a:hover {
@@ -368,6 +369,7 @@
 
             .sidebar-toggle {
                 display: flex;
+                z-index: 100;
             }
 
             .hero {
@@ -390,7 +392,7 @@
                 backdrop-filter: blur(1px);
                 -webkit-backdrop-filter: blur(0px);
                 position: relative;
-                z-index: 999;
+                z-index: 100;
                 
             }
 
@@ -404,7 +406,7 @@
                 transform: translateX(-50%);
                 /* object-fit: contain; */
                 opacity: 0.7;
-                z-index: 998;
+                z-index: 99;
                 animation: floatAnimation 3s ease-in-out infinite;
             }
         }
@@ -450,6 +452,7 @@
                 max-height: 100vh;
                 padding: 25px 15px;
                 height:70vh;
+                pointer-events: none;
             }
 
             .hero-image {
@@ -457,8 +460,11 @@
                 height: 100vh;
                 max-height:100vh;
                 width:100vw;
-                z-index:998;
+                z-index:99;
+                pointer-events: none;
             }
+            
+            
         }
 
         @keyframes pulse {
@@ -1007,37 +1013,39 @@
     </div>
     <div class="overlay"></div>
 
+    <nav>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">PORT<span>FOLIO</span></div>
+        <div class="menu-icon" role="button" aria-label="Toggle navigation menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+            <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="sidebar">
+        <ul class="sidebar-links">
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+            <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
+            <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </div>
+
    
     <section class="hero" id="home">
 
-        <nav>
-            <button class="sidebar-toggle" aria-label="Toggle sidebar">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo">PORT<span>FOLIO</span></div>
-            <div class="menu-icon" role="button" aria-label="Toggle navigation menu">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
-                <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
-                <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-            </ul>
-        </nav>
-    
-        <div class="sidebar">
-            <ul class="sidebar-links">
-                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
-                <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
-                <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
-                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-            </ul>
-        </div>
+        
 
         
         <div class="hero-content">
