@@ -81,7 +81,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(12, 12, 13, 0.633);
+            background: rgba(12, 12, 13, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -298,7 +298,6 @@
             color: var(--text-color);
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 999;
         }
 
         .sidebar-toggle:hover {
@@ -311,14 +310,14 @@
 
         .sidebar {
             position: fixed;
-            left: -300px;
+            left: -400px;
             top: 0;
             width: 300px;
             height: 100vh;
             background: rgba(1, 1, 30, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            z-index: 999;
+            z-index: 9999;
             padding: 100px 30px;
             transition: all 0.3s ease;
             border-right: 1px solid var(--card-border);
@@ -326,7 +325,23 @@
 
         .sidebar.active {
             left: 0;
-            
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-close:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
         }
 
         .sidebar-links {
@@ -1033,6 +1048,9 @@
     </nav>
 
     <div class="sidebar">
+        <button class="sidebar-close" aria-label="Close sidebar">
+            <i class="fas fa-times"></i>
+        </button>
         <ul class="sidebar-links">
             <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
@@ -1074,7 +1092,7 @@
         <div class="about-container">
             <div class="about-content">
                 <div class="about-text">
-                    <p>I’m Arjun, a versatile developer & creative designer with expertise in Frontend Development, Game Development, UI/UX Design, and AI Integration. My passion lies in crafting visually stunning, highly functional, and AI-powered digital experiences that engage users and drive innovation.
+                    <p>I'm Arjun, a versatile developer & creative designer with expertise in Frontend Development, Game Development, UI/UX Design, and AI Integration. My passion lies in crafting visually stunning, highly functional, and AI-powered digital experiences that engage users and drive innovation.
 
                         What I Do:
                         🎨 Frontend Development – Creating sleek, responsive, and user-friendly web interfaces.
@@ -1341,10 +1359,16 @@
             document.querySelector('.sidebar').classList.toggle('active');
         });
 
+        // Close sidebar with close button
+        document.querySelector('.sidebar-close').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
         // Close sidebar when clicking outside
         document.addEventListener('click', (e) => {
             const sidebar = document.querySelector('.sidebar');
             const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const sidebarClose = document.querySelector('.sidebar-close');
             
             if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('active')) {
                 sidebar.classList.remove('active');

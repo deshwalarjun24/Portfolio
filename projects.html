@@ -7,6 +7,13 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #00ffcc;
+            --bg-color: rgb(1, 1, 30);
+            --text-color: white;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(0, 255, 204, 0.1);
+        }
         body {
             margin: 0;
             padding: 0;
@@ -32,89 +39,205 @@
             z-index: -999;
         }
            
-        nav {
+        /* NEW NAVBAR STYLES */
+        .header {
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(1, 1, 30, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 100;
-            padding: 25px 0;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-left: 50px;
-            padding-right: 50px;
-            box-sizing: border-box;
-            background: rgba(4, 4, 11, 0.679);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 50px;
         }
-        
+
         .logo {
-            color: white;
             font-size: 24px;
             font-weight: bold;
-            letter-spacing: 1px;
-            font-family: 'Arial', sans-serif;
+            color: var(--text-color);
         }
-        
+
         .logo span {
-            color: #00ffcc;
+            color: var(--primary-color);
         }
-        
-        .nav-links {
+
+        .nav-menu {
             display: flex;
-            justify-content: center;
             list-style: none;
             margin: 0;
             padding: 0;
         }
-        
-        .nav-links li {
+
+        .nav-item {
             margin: 0 15px;
-            position: relative;
         }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            letter-spacing: 1px;
-            font-weight: 500;
-            padding: 8px 12px;
+
+        .nav-link {
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
             position: relative;
-            transition: all 0.3s ease;
+            padding: 5px 0;
         }
-        
-        .nav-links a i {
-            font-size: 14px;
-            color: #00ffcc;
-            transition: all 0.3s ease;
+
+        .nav-link i {
+            color: var(--primary-color);
+            font-size: 16px;
+            transition: transform 0.3s ease;
         }
-        
-        .nav-links a:hover {
-            color: #00ffcc;
+
+        .nav-link:hover {
+            color: var(--primary-color);
         }
-        
-        .nav-links a:hover i {
+
+        .nav-link:hover i {
             transform: translateY(-2px);
         }
-        
-        .nav-links a::after {
+
+        .nav-link::after {
             content: '';
             position: absolute;
+            bottom: 0;
+            left: 0;
             width: 0;
             height: 2px;
-            background-color: #00ffcc;
-            left: 0;
-            bottom: -2px;
+            background-color: var(--primary-color);
             transition: width 0.3s ease;
         }
-        
-        .nav-links a:hover::after {
+
+        .nav-link:hover::after {
             width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+        }
+
+        .hamburger i {
+            color: var(--primary-color);
+        }
+
+        /* Mobile sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 250px;
+            height: 100vh;
+            background-color: rgba(1, 1, 30, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            padding-top: 70px;
+            transition: right 0.3s ease;
+            border-left: 1px solid var(--card-border);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0 20px;
+        }
+
+        .sidebar-item {
+            margin: 20px 0;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--primary-color);
+        }
+
+        .sidebar-link i {
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-close:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+
+        @media screen and (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-container {
+                padding: 15px 30px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 20px;
+            }
+        }
+
+        /* OVERLAY */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
         .projects-container {
@@ -273,44 +396,53 @@
             font-size: 1.2em;
         }
 
-        @media screen and (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card {
-                max-width: 500px;
-                margin: 0 auto;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .explore-btn {
-                padding: 10px 25px;
-                font-size: 1em;
-            }
-        }
-
         @keyframes pulse {
             0% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); }
             50% { box-shadow: 0 0 25px rgba(0, 255, 204, 0.8); }
             100% { box-shadow: 0 0 15px rgba(0, 255, 204, 0.5); }
         }
+
+        .footer
+        {
+            
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.704);          
+            border: 1px solid rgba(255, 255, 255, 0.155);  
+            box-shadow: 10px 10px 10px 5px rgb(241, 238, 238);
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">PORT<span>FOLIO</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="index.html#about"><i class="fas fa-user"></i> About</a></li>
-            <li><a href="index.html#skills"><i class="fas fa-code"></i> Skills</a></li>
-            <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
-            <li><a href="index.html#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+    <div class="overlay"></div>
+    <div class="header">
+        <div class="nav-container">
+            <div class="logo">PORT<span>FOLIO</span></div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link"><i class="fas fa-user"></i> About</a></li>
+                <li class="nav-item"><a href="index.html#skills" class="nav-link"><i class="fas fa-code"></i> Skills</a></li>
+                <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <button class="sidebar-close" aria-label="Close sidebar">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item"><a href="index.html#home" class="sidebar-link"><i class="fas fa-home"></i> Home</a></li>
+            <li class="sidebar-item"><a href="index.html#about" class="sidebar-link"><i class="fas fa-user"></i> About</a></li>
+            <li class="sidebar-item"><a href="index.html#skills" class="sidebar-link"><i class="fas fa-code"></i> Skills</a></li>
+            <li class="sidebar-item"><a href="projects.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li class="sidebar-item"><a href="index.html#contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
-    </nav>
+    </div>
 
     <div class="projects-container">
         <h1 class="page-title">Web<span> Development</span></h1>
@@ -593,7 +725,9 @@
         </div>
     </div>
 
-    
+    <footer class="footer">
+        <p>2025@Copyright Arjun Singh</p>
+    </footer>
 
     <video id="background-video" autoplay loop muted>
         <source src="assets/Space.mp4" type="video/mp4">
@@ -711,6 +845,29 @@
             characterElement.style.left = posX + 'px';
             characterElement.style.top = posY + 'px';
             moveCharacter();
+        });
+
+        // Sidebar toggle
+        const hamburger = document.querySelector('.hamburger');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarClose = document.querySelector('.sidebar-close');
+        
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking the close button
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('active') && 
+                !sidebar.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
         });
     </script>
 </body>
